@@ -45,12 +45,12 @@ public class skuska extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1.setText("File");
-        jMenuItem1.setText("Open");        
-        
+        jMenuItem1.setText("Open");
+
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);               
+                jMenuItem1ActionPerformed(evt);
             }
         });
 
@@ -83,20 +83,20 @@ public class skuska extends javax.swing.JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {                
-                super.mousePressed(e);                       
-                currentPoint=new Point(e.getX(), e.getY());
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                    currentPoint = new Point( e.getX()+jPanel3.dx, e.getY()+jPanel3.dy);
             }
         });
 
         addMouseMotionListener(new MouseMotionAdapter() {
-
+            
             @Override
             public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                jPanel3.dx=currentPoint.x-e.getX();
-                jPanel3.dy=currentPoint.y-e.getY();
-                jPanel3.repaint();
+                super.mouseDragged(e);               
+                    jPanel3.dx = currentPoint.x - e.getX();
+                    jPanel3.dy = currentPoint.y - e.getY();
+                    jPanel3.repaint();
             }
         });
 
@@ -115,7 +115,7 @@ public class skuska extends javax.swing.JFrame {
 
     public void Clicked(MouseEvent e) {
         //jPanel3.theCat = createImage(jPanel4);
-        jPanel3.repaint();   
+        jPanel3.repaint();
     }
 
     public BufferedImage createImage(JPanel panel) {
@@ -150,7 +150,7 @@ public class skuska extends javax.swing.JFrame {
         jPanel4.setBackground(Color.red);
         parser = new YamlParser();
         currentPoint = new Point();
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -165,7 +165,7 @@ public class skuska extends javax.swing.JFrame {
         add(jToggleButton1);
 
         jToggleButton1.setText("Grid");
-        jLabel1.setText("ZOOM");
+        jLabel1.setText("Zoom");
         jMenu1.setText("File");
         jMenuItem1.setText("Open");
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -237,7 +237,6 @@ public class skuska extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(ActionEvent evt) {
         System.out.println("saving");
     }
-    
     JFileChooser fileChooser;
     FileFilter ff = new FileFilter() {
 
