@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class ICEGraphicsViewer extends JPanel {
 
     int velkost = 30;
-    int dx, dy=0;
+    int dx, dy = 0;
     //BufferedImage theCat = null;
     int scale = 250;
     boolean grid = false;
@@ -77,7 +77,7 @@ public class ICEGraphicsViewer extends JPanel {
             g2d.setPaint(redtowhite);
             Stroke s = new BasicStroke(widths.get(i));
             g2d.setStroke(s);
-            g2d.draw(new Line2D.Double(h + (int) vertices.get(i * 2).X, w + (int) vertices.get(i * 2).Y, h + (int) vertices.get(i * 2 + 1).X, w + (int) vertices.get(i * 2 + 1).Y));
+            g2d.draw(new Line2D.Double(h + (int) vertices.get(i * 2).X - dx, w + (int) vertices.get(i * 2).Y - dy, h + (int) vertices.get(i * 2 + 1).X - dx, w + (int) vertices.get(i * 2 + 1).Y - dy));
         }
     }
 
