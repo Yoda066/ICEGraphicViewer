@@ -4,6 +4,7 @@
  */
 package ice;
 
+import com.sun.org.apache.bcel.internal.generic.FLOAD;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ public class ICEGraphicsViewer extends JPanel {
     int scale = 250;
     boolean grid = false;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
-    private ArrayList<Integer> widths;
+    private ArrayList<Float> widths;
 
     public void setVertices(ArrayList<Vertex> vertices) {
         this.vertices.clear();
         this.vertices.addAll(vertices);
     }
 
-    public void setWidths(ArrayList<Integer> widths) {
+    public void setWidths(ArrayList<Float> widths) {
         this.widths = widths;
     }
 
@@ -49,7 +50,7 @@ public class ICEGraphicsViewer extends JPanel {
         int h = size.height - insets.top - insets.bottom;
         int pocetX = w / this.velkost;
         int pocetY = h / this.velkost;
-        g2d.setColor(new Color(255, 255, 255, 100));
+        g2d.setColor(new Color(255, 255, 255, 75));
 
         for (int i = 0; i < pocetY; i++) {
             g2d.drawLine(0, h / 2 + i * this.velkost, size.width - insets.right, h / 2 + i * this.velkost);
