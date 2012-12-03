@@ -1,3 +1,7 @@
+// Copyright David Horvath 2012.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 package ice;
 
 import java.awt.Color;
@@ -11,8 +15,8 @@ import org.yaml.snakeyaml.Yaml;
  */
 public class YamlParser {
 
-    private Color currentColor = (Color.white);
-    private float currentWidth = 1;
+    private Color currentColor;
+    private float currentWidth;
     private ArrayList<Float> widths = new ArrayList<Float>();
     private ArrayList<Vertex> entity = new ArrayList<>();
     private File file;
@@ -30,17 +34,22 @@ public class YamlParser {
     }
 
     public void loadShip() throws FileNotFoundException {
-        //OPENING YAML FILE
+
+        //Opening yaml file
         InputStream input = new FileInputStream(file);
         Yaml yaml = new Yaml();
         Map o = (Map) yaml.load(input);
         ArrayList<Object[]> e = (ArrayList<Object[]>) o.get("vertices");
 
-        //CREATING NEW ENTITY FROM OBJECT
+        //Inicialization
         entity.clear();
         widths.clear();
+        currentColor = (Color.white);
+        currentWidth = 1;
 
+        //Creating new entitny from yaml object o        
         for (Object[] element : e) {
+
             if (element[1] instanceof ArrayList) {
                 ArrayList<Double> coordinates = new ArrayList<Double>();
                 ArrayList<?> pole = (ArrayList<?>) element[1];
@@ -71,14 +80,18 @@ public class YamlParser {
                 String pom = "";
                 if (c.startsWith("rgba")) {
                     pom = c.substring(4);
+                    r = Integer.parseInt(pom.substring(0, 2), 16);
+                    g = Integer.parseInt(pom.substring(2, 4), 16);
+                    b = Integer.parseInt(pom.substring(4, 6), 16);
                     a = Integer.parseInt(pom.substring(6, 8), 16);
+                    currentColor = new Color(r, g, b, a);
                 } else {
                     pom = c.substring(3);
+                    r = Integer.parseInt(pom.substring(0, 2), 16);
+                    g = Integer.parseInt(pom.substring(2, 4), 16);
+                    b = Integer.parseInt(pom.substring(4, 6), 16);
+                    currentColor = new Color(r, g, b);
                 }
-                r = Integer.parseInt(pom.substring(0, 2), 16);
-                g = Integer.parseInt(pom.substring(2, 4), 16);
-                b = Integer.parseInt(pom.substring(4, 6), 16);
-                currentColor = new Color(r, g, b, a);
             }
         }
     }

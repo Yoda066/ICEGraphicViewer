@@ -1,7 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+// Copyright David Horvath 2012.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
 package ice;
 
 import java.awt.Color;
@@ -101,15 +103,11 @@ public class MainWindow extends javax.swing.JFrame {
             public void mouseWheelMoved(MouseWheelEvent e) {
                 super.mouseWheelMoved(e);
                 jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());
-                if (jSlider1.getValue() != jSlider1.getMinimum() && jSlider1.getValue() != jSlider1.getMaximum()) {
-                    jPanel3.scale -= 10 * (int) e.getPreciseWheelRotation();
-                }
             }
         });
     }
 
     public void Clicked(MouseEvent e) {
-        //jPanel3.theCat = createImage(jPanel4);
         jPanel3.repaint();
     }
 
