@@ -8,16 +8,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.util.Currency;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.print.DocFlavor;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -28,12 +23,12 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author student
  */
-public class skuska extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public skuska() {
+    public MainWindow() {
         initComponents();
         setTitle("ICE Graphic Viewer");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -224,7 +219,7 @@ public class skuska extends javax.swing.JFrame {
                 try {
                     parser.loadShip();
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(skuska.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 jPanel3.setVertices(parser.getEntity());
                 jPanel3.setWidths(parser.getWidths());
@@ -266,7 +261,7 @@ public class skuska extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new skuska().setVisible(true);
+                new MainWindow().setVisible(true);
             }
         });
     }
