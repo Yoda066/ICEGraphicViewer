@@ -1,9 +1,7 @@
-
 // Copyright David Horvath 2012.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
 package ice;
 
 import java.awt.Color;
@@ -82,18 +80,18 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                    currentPoint = new Point( e.getX()+jPanel3.dx, e.getY()+jPanel3.dy);
+                currentPoint = new Point(e.getX() + jPanel3.dx, e.getY() + jPanel3.dy);
             }
         });
 
         addMouseMotionListener(new MouseMotionAdapter() {
-            
+
             @Override
             public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);               
-                    jPanel3.dx = currentPoint.x - e.getX();
-                    jPanel3.dy = currentPoint.y - e.getY();
-                    jPanel3.repaint();
+                super.mouseDragged(e);
+                jPanel3.dx = currentPoint.x - e.getX();
+                jPanel3.dy = currentPoint.y - e.getY();
+                jPanel3.repaint();
             }
         });
 
@@ -211,24 +209,27 @@ public class MainWindow extends javax.swing.JFrame {
         if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             if (!selectedFile.getPath().endsWith("yaml")) {
-                System.err.println("Vyberte subor s priponou YAML!");
+                ErrorWindow w = new ErrorWindow(MainWindow.this, "Please choose YAML file!");
+                w.setVisible(true);
+                w.dispose();
             } else {
-                parser.setFile(selectedFile);
-                try {
-                    parser.loadShip();
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                parser.loadShip(selectedFile);
+                if (parser.getEntity() != null) {
+                    jPanel3.setVertices(parser.getEntity());
+                    jPanel3.setWidths(parser.getWidths());
+                    jPanel3.repaint();
+                } else {
+                    ErrorWindow w = new ErrorWindow(MainWindow.this, parser.getError());
+                    w.setVisible(true);
+                    w.dispose();
                 }
-                jPanel3.setVertices(parser.getEntity());
-                jPanel3.setWidths(parser.getWidths());
-                jPanel3.repaint();
             }
         } else if (status == JFileChooser.CANCEL_OPTION) {
         }
     }
 
     private void jMenuItem2ActionPerformed(ActionEvent evt) {
-        System.out.println("saving");
+        System.out.println("Saving...");
     }
     JFileChooser fileChooser;
     FileFilter ff = new FileFilter() {

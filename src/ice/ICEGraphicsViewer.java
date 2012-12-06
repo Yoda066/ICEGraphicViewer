@@ -65,9 +65,7 @@ public class ICEGraphicsViewer extends JPanel {
             g2d.setPaint(color);            
             g2d.setStroke(new BasicStroke(widths.get(i)));
             g2d.draw(new Line2D.Double(h + vertices.get(i * 2).X - dx, w + vertices.get(i * 2).Y - dy, h + vertices.get(i * 2 + 1).X - dx, w + vertices.get(i * 2 + 1).Y - dy));
-            System.out.println(v1+" "+v2);
         }
-        System.out.println("----------------------------------------------------------------------------");
     }
 
     @Override
