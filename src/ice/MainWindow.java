@@ -171,16 +171,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
-        jMenuItem2.setText("Save");
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-
-        jMenu1.add(jMenuItem2);
         jMenuBar1.add(jMenu1);
         jMenu2.setText("About");
         jMenuBar1.add(jMenu2);
@@ -232,9 +223,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
 
-    private void jMenuItem2ActionPerformed(ActionEvent evt) {
-        System.out.println("Saving...");
-    }
+
     JFileChooser fileChooser;
     FileFilter ff = new FileFilter() {
 
@@ -277,7 +266,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private ICEGraphicsViewer jPanel3;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JToggleButton jToggleButton1;
