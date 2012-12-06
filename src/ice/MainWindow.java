@@ -41,11 +41,14 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1.setText("File");
         jMenuItem1.setText("Open");
+        jToggleButton1.setEnabled(false);
+        jSlider1.setEnabled(false);
 
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
+               
             }
         });
 
@@ -100,7 +103,8 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 super.mouseWheelMoved(e);
-                jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());
+                //Will be uncomented when Zoom is gona work
+                //jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());
             }
         });
     }
