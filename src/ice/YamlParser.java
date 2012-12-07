@@ -13,7 +13,7 @@ import org.yaml.snakeyaml.Yaml;
  * YamlParser converts an yaml ICE visual files into arrays of Vertices and
  * widths.
  *
- * @author student
+ * @author David Horvath
  */
 public class YamlParser {
 

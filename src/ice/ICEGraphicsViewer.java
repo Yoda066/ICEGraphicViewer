@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Yoda066
+ * ICEGraphicsViewer draws visual representation of entity 
+ * @author David Horvath
  */
 public class ICEGraphicsViewer extends JPanel {
 
-    float scale = 1;
+    float scale = (float) 1.5;
     int dx, dy = 0;
     boolean grid = false;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
@@ -30,8 +30,10 @@ public class ICEGraphicsViewer extends JPanel {
         this.widths = widths;
     }
 
-
-
+    
+    /*
+     * Draws entity using List of vertices and List of lines widths
+     */
     private void drawEntity(Graphics2D g2d) {
         int h = this.getWidth() / 2;
         int w = this.getHeight() / 2;
@@ -53,7 +55,6 @@ public class ICEGraphicsViewer extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-       
         if (vertices != null) {
             drawEntity(g2d);
         }

@@ -17,7 +17,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author student
+ * @author David Horvath
  */
 public class MainWindow extends javax.swing.JFrame {
 
