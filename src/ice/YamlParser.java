@@ -10,7 +10,9 @@ import java.util.*;
 import org.yaml.snakeyaml.Yaml;
 
 /**
- * YamlParser converts an yaml ICE visual files into arrays of Vertices and widths.
+ * YamlParser converts an yaml ICE visual files into arrays of Vertices and
+ * widths.
+ *
  * @author student
  */
 public class YamlParser {
@@ -33,16 +35,30 @@ public class YamlParser {
         return errorMessage;
     }
 
-    
-    /* Try to parse yaml object into ICE visual component.
-     * @param file File to convert.
+    /*
+     * Try to parse yaml object into ICE visual component. @param file File to
+     * convert.
      */
     public void loadShip(File file) {
         InputStream input = null;
         try {
             input = new FileInputStream(file);
             Yaml yaml = new Yaml();
-            Map yamlObject = (Map) yaml.load(input);
+            Map yamlObject = null;
+            try {
+                yamlObject = (Map) yaml.load(input);
+            } catch (ClassCastException e) {
+                errorMessage = "Please choose visual file!";
+                entity = null;
+                return;
+            }
+
+            if (!yamlObject.containsKey("type")) {
+                errorMessage = "Please choose visual file!";
+                entity = null;
+                return;
+            }
+
             if (!yamlObject.get("type").equals("lines")) {
                 errorMessage = "type must be lines!";
                 entity = null;
@@ -53,8 +69,8 @@ public class YamlParser {
             ArrayList<Object[]> list = (ArrayList<Object[]>) yamlObject.get("vertices");
 
             //Inicialization
-            entity=new ArrayList<>();
-            widths=new ArrayList<>();
+            entity = new ArrayList<>();
+            widths = new ArrayList<>();
             currentColor = (Color.white);
             currentWidth = 1;
 
@@ -116,11 +132,10 @@ public class YamlParser {
                             } else if (values.get(i) instanceof Integer) {
                                 Integer pom = (Integer) values.get(i);
                                 coordinates.add((double) pom.intValue());
-                            }
-                            else {
-                            entity = null;
-                            errorMessage = "Parameter "+values.get(i) +" is not valid parameter for vertex.";
-                            return;
+                            } else {
+                                entity = null;
+                                errorMessage = "Parameter " + values.get(i) + " is not valid parameter for vertex.";
+                                return;
                             }
                         }
 
