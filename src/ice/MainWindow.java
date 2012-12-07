@@ -38,7 +38,6 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1.setText("File");
         jMenuItem1.setText("Open");
         jToggleButton1.setEnabled(false);
@@ -130,7 +129,6 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jSlider1.setMaximum(50);
         jSlider1.setMinimum(10);
