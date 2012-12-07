@@ -8,11 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -65,9 +61,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
 
             private void jSlider1StateChanged(ChangeEvent evt) {
-                jPanel3.velkost = jSlider1.getValue();
+                jPanel3.scale = (float)(jSlider1.getValue())/10;
                 jPanel3.repaint();
-
             }
         });
 
@@ -102,8 +97,8 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 super.mouseWheelMoved(e);
-                //Will be uncomented when Zoom is gona work
-                //jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());
+                //Will be uncomented when Zoom is gona work (soon)
+                //jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation()*2);               
             }
         });
     }
@@ -112,15 +107,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.repaint();
     }
 
-    public BufferedImage createImage(JPanel panel) {
-        int w = panel.getWidth();
-        int h = panel.getHeight();
-        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = bi.createGraphics();
-        panel.paint(g);
-        return bi;
-    }
-
+//      start of GUI generated code
     private void initComponents() {
         jFileChooser1 = new javax.swing.JFileChooser();
         jPanel3 = new ICEGraphicsViewer();
@@ -138,9 +125,6 @@ public class MainWindow extends javax.swing.JFrame {
         jFileChooser1.setPreferredSize(new java.awt.Dimension(800, 600));
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel3.setBackground(Color.black);
-        jPanel4 = new JPanel();
-        jPanel4.setSize(800, 600);
-        jPanel4.setBackground(Color.red);
         parser = new YamlParser();
         currentPoint = new Point();
 
@@ -175,7 +159,6 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
         setJMenuBar(jMenuBar1);
 
-//      start of GUI generated code
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,9 +199,8 @@ public class MainWindow extends javax.swing.JFrame {
                     w.setVisible(true);
                     w.dispose();
                 }
-            }
-        } else if (status == JFileChooser.CANCEL_OPTION) {
-        }
+            }            
+        } 
     }
 
 
@@ -258,7 +240,6 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration
     private YamlParser parser;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

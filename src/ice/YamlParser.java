@@ -17,7 +17,7 @@ public class YamlParser {
 
     private Color currentColor;
     private float currentWidth;
-    private ArrayList<Float> widths = new ArrayList<Float>();
+    private ArrayList<Float> widths = new ArrayList<>();
     private ArrayList<Vertex> entity = new ArrayList<>();
     private String errorMessage = null;
 
@@ -53,8 +53,8 @@ public class YamlParser {
             ArrayList<Object[]> list = (ArrayList<Object[]>) yamlObject.get("vertices");
 
             //Inicialization
-            entity.clear();
-            widths.clear();
+            entity=new ArrayList<>();
+            widths=new ArrayList<>();
             currentColor = (Color.white);
             currentWidth = 1;
 
