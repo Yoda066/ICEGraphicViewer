@@ -43,7 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
-               
+
             }
         });
 
@@ -61,7 +61,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
 
             private void jSlider1StateChanged(ChangeEvent evt) {
-                jPanel3.scale = (float)(jSlider1.getValue())/10;
+                jPanel3.scale = (float) (jSlider1.getValue()) / 10;
                 jPanel3.repaint();
             }
         });
@@ -193,17 +193,17 @@ public class MainWindow extends javax.swing.JFrame {
                 if (parser.getEntity() != null) {
                     jPanel3.setVertices(parser.getEntity());
                     jPanel3.setWidths(parser.getWidths());
+                    jPanel3.dx = 0;
+                    jPanel3.dy = 0;
                     jPanel3.repaint();
                 } else {
                     ErrorWindow w = new ErrorWindow(MainWindow.this, parser.getError());
                     w.setVisible(true);
                     w.dispose();
                 }
-            }            
-        } 
+            }
+        }
     }
-
-
     JFileChooser fileChooser;
     FileFilter ff = new FileFilter() {
 
