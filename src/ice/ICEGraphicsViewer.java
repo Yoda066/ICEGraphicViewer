@@ -30,28 +30,7 @@ public class ICEGraphicsViewer extends JPanel {
     public void setWidths(ArrayList<Float> widths) {
         this.widths = widths;
     }
-
-    //GRID
-//    private void drawGrid(Graphics2D g2d) {
-//        Dimension size = getSize();
-//        Insets insets = getInsets();
-//        int w = size.width - insets.left - insets.right;
-//        int h = size.height - insets.top - insets.bottom;
-//        int pocetX = w / this.scale;
-//        int pocetY = h / this.scale;
-//        g2d.setColor(new Color(255, 255, 255, 75));
-//
-//        for (int i = -45; i < pocetY; i++) {
-//            g2d.drawLine(0, h / 2 + i * this.scale - dy, size.width - insets.right, h / 2 + i * this.scale - dy);
-//        }
-//
-//        for (int i = -45; i < pocetX; i++) {
-//            g2d.drawLine(w / 2 + i * this.scale - dx, 0, w / 2 + i * this.scale - dx, size.height - insets.top);
-//        }
-//        g2d.setColor(Color.red);
-//        g2d.drawLine(w / 2 - dx, h / 2 - this.scale - dy, w / 2 - dx, h / 2 + this.scale - dy);
-//        g2d.drawLine(w / 2 - this.scale - dx, h / 2 - dy, w / 2 + this.scale - dx, h / 2 - dy);
-//    }
+    
     /*
      * Draws entity using List of vertices and List of lines widths
      */
