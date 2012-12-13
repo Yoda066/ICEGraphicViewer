@@ -37,7 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setText("File");
         jMenuItem1.setText("Open");
         jToggleButton1.setEnabled(false);
-        jSlider1.setEnabled(false);
+        jSlider1.setEnabled(true);
 
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
@@ -62,6 +62,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             private void jSlider1StateChanged(ChangeEvent evt) {
                 jPanel3.scale = (float) (jSlider1.getValue()) / 10;
+                System.out.println(jPanel3.scale);
                 jPanel3.repaint();
             }
         });
@@ -98,7 +99,7 @@ public class MainWindow extends javax.swing.JFrame {
             public void mouseWheelMoved(MouseWheelEvent e) {
                 super.mouseWheelMoved(e);
                 //Will be uncomented when Zoom is gona work (soon)
-                //jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation()*2);               
+                jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());                               
             }
         });
     }
@@ -117,9 +118,9 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jSlider1.setMaximum(50);
-        jSlider1.setMinimum(10);
-        jSlider1.setValue((jSlider1.getMaximum() + jSlider1.getMinimum()) / 2);
+        jSlider1.setMaximum(40);
+        jSlider1.setMinimum(5);
+        jSlider1.setValue(10);       
         jFileChooser1.setDialogTitle("Open YAML file");
         jFileChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jFileChooser1.setPreferredSize(new java.awt.Dimension(800, 600));
