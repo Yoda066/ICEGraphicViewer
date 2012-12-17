@@ -36,7 +36,6 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1.setText("File");
         jMenuItem1.setText("Open");
-        jToggleButton1.setEnabled(false);
         jSlider1.setEnabled(true);
 
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +61,6 @@ public class MainWindow extends javax.swing.JFrame {
 
             private void jSlider1StateChanged(ChangeEvent evt) {
                 jPanel3.scale = (float) (jSlider1.getValue()) / 10;
-                System.out.println(jPanel3.scale);
                 jPanel3.repaint();
             }
         });
@@ -87,9 +85,15 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                jPanel3.dx = currentPoint.x - e.getX();
-                jPanel3.dy = currentPoint.y - e.getY();
-                jPanel3.repaint();
+                //Moves scene
+                if (-jPanel3.getWidth() / 2 < currentPoint.x - e.getX() && currentPoint.x - e.getX() < jPanel3.getWidth() / 2) {
+                    jPanel3.dx = currentPoint.x - e.getX();
+                    jPanel3.repaint();
+                }
+                if (-jPanel3.getHeight() / 2 < currentPoint.y - e.getY() && currentPoint.y - e.getY() < jPanel3.getHeight() / 2) {
+                    jPanel3.dy = currentPoint.y - e.getY();
+                    jPanel3.repaint();
+                }
             }
         });
 
@@ -98,13 +102,23 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 super.mouseWheelMoved(e);
-                //Will be uncomented when Zoom is gona work (soon)
-                jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());                               
+                jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());
             }
         });
     }
 
     public void Clicked(MouseEvent e) {
+        float windowWidth = jPanel3.getWidth();
+        float windowHeight = jPanel3.getHeight();
+
+        //Percentual value of positions in jPanel
+        float perCentX = (float) (e.getX() - 265) / windowWidth;
+        float perCentY = (float) (e.getY() - 261) / windowHeight;
+
+        //Real coordinates in grid (don´t change after zooming and mooving scene)
+        double positionX = (double) Math.round((perCentX * windowWidth + jPanel3.dx) / jPanel3.scale * 10) / 10;
+        double positionY = (double) Math.round((perCentY * windowHeight + jPanel3.dy) / jPanel3.scale * 10) / 10;
+
         jPanel3.repaint();
     }
 
@@ -119,8 +133,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jSlider1.setMaximum(40);
-        jSlider1.setMinimum(5);
-        jSlider1.setValue(10);       
+        jSlider1.setMinimum(10);
+        jSlider1.setValue(10);
         jFileChooser1.setDialogTitle("Open YAML file");
         jFileChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jFileChooser1.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -206,6 +220,8 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
     JFileChooser fileChooser;
+    
+    ///ff accepts only yaml files.
     FileFilter ff = new FileFilter() {
 
         @Override
