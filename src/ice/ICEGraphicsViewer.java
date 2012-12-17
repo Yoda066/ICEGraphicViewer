@@ -6,7 +6,6 @@ package ice;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -26,7 +25,9 @@ public class ICEGraphicsViewer extends JPanel {
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     ///Widths of lines from vertices 2n and 2n+1 
     private ArrayList<Float> widths;
-    
+    //private BufferedImage bi;
+    float gridSize = 20;
+
     public void setVertices(ArrayList<Vertex> vertices) {
         this.vertices.clear();
         this.vertices.addAll(vertices);
@@ -55,18 +56,29 @@ public class ICEGraphicsViewer extends JPanel {
             g2d.setStroke(new BasicStroke(widths.get(i)));
             g2d.draw(new Line2D.Double(v1.X, v1.Y, v2.X, v2.Y));
         }
+        
+        g2d.setPaint(new Color(255, 255, 255, 150));
+        g2d.setStroke(new BasicStroke((float) 0.7));        
+        
+        //if grid button is selected, grid is drawn
+        if (grid) {
+            for (int i = 0; i < w / gridSize*2; i++) {
+                g2d.draw(new Line2D.Double(i * gridSize, -3*h, i * gridSize, h*3));
+                g2d.draw(new Line2D.Double(-i * gridSize, -3*h,-i * gridSize, h*3));
+            }
+            for (int i = 0; i < h / gridSize*2; i++) {
+                g2d.draw(new Line2D.Double(-3*w, i * gridSize, w*3, i * gridSize));
+                g2d.draw(new Line2D.Double(-3*w, - i * gridSize, w*3, - i * gridSize));
+            }
+        }        
     }
 
-
-    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        //if (grid) {
-        // drawGrid(g2d);
-        //}
+
         if (vertices != null) {
             drawEntity(g2d);
         }
