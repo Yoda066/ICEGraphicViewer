@@ -34,6 +34,9 @@ public class ICEGraphicsViewer extends JPanel {
     float gridSize = 20;
     ///Point, where dragging starts
     Point currentPoint;
+    ///Color of first vertex in drawing
+    Color c1;
+    Color c2;
     private boolean button1down = false;
     private boolean button3down = false;
 
@@ -68,7 +71,7 @@ public class ICEGraphicsViewer extends JPanel {
                     button1down = false;
                     vertices.add(new Vertex(0, 0, Color.red));
                     vertices.add(new Vertex(0, 0, Color.red));
-                    widths.add((float)0);
+                    widths.add((float) 0);
                 }
                 if (e.getButton() == 3) {
                     button3down = false;
@@ -96,18 +99,23 @@ public class ICEGraphicsViewer extends JPanel {
 
                 if (button1down) {
                     if (vertices.size() >= 2) {
-                        vertices.set(vertices.size() - 2, new Vertex((currentPoint.x - 250) / scale, (currentPoint.y - 200) / scale, Color.red));
-                        vertices.set(vertices.size() - 1, new Vertex((e.getX() - 250+dx) / scale, (e.getY() - 200+dy) / scale, Color.red));
+                        vertices.set(vertices.size() - 2, new Vertex((currentPoint.x - 250) / scale, (currentPoint.y - 200) / scale, c1));
+                        vertices.set(vertices.size() - 1, new Vertex((e.getX() - 250 + dx) / scale, (e.getY() - 200 + dy) / scale, c2));
                         widths.set(widths.size() - 1, (float) 1);
                     } else {
-                        vertices.add(new Vertex((currentPoint.x - 250) / scale, (currentPoint.y - 200) / scale, Color.red));
-                        vertices.add(new Vertex((e.getX() - 250+dx) / scale, (e.getY() - 200+dy) / scale, Color.red));
+                        vertices.add(new Vertex((currentPoint.x - 250) / scale, (currentPoint.y - 200) / scale, c1));
+                        vertices.add(new Vertex((e.getX() - 250 + dx) / scale, (e.getY() - 200 + dy) / scale, c2));
                         widths.add((float) 1);
                     }
                     repaint();
                 }
             }
         });
+    }
+
+    public void setColors(Color c1, Color c2) {
+        this.c1 = c1;
+        this.c2 = c2;
     }
 
     public void setVertices(ArrayList<Vertex> vertices) {
@@ -130,7 +138,7 @@ public class ICEGraphicsViewer extends JPanel {
         g2d.translate(w - dx, h - dy);
         g2d.scale(scale, scale);
 
-        
+
         g2d.setPaint(new Color(255, 255, 255, 150));
         g2d.setStroke(new BasicStroke((float) 0.7));
 
@@ -145,7 +153,7 @@ public class ICEGraphicsViewer extends JPanel {
                 g2d.draw(new Line2D.Double(-3 * w, -i * gridSize, w * 3, -i * gridSize));
             }
         }
-        
+
         for (int i = 0; i < vertices.size() / 2; i++) {
             Vertex v1 = vertices.get(i * 2);
             Vertex v2 = vertices.get(i * 2 + 1);
