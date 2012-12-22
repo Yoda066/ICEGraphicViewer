@@ -5,12 +5,10 @@
 package ice;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.*;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.filechooser.FileFilter;
@@ -37,6 +35,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setText("File");
         jMenuItem1.setText("Open");
         jSlider1.setEnabled(true);
+        setFocusable(true);
+
 
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
@@ -65,38 +65,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-
-        addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                Clicked(e);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                currentPoint = new Point(e.getX() + jPanel3.dx, e.getY() + jPanel3.dy);
-            }
-        });
-
-        addMouseMotionListener(new MouseMotionAdapter() {
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                //Moves scene
-                if (-jPanel3.getWidth() / 2 < currentPoint.x - e.getX() && currentPoint.x - e.getX() < jPanel3.getWidth() / 2) {
-                    jPanel3.dx = currentPoint.x - e.getX();
-                    jPanel3.repaint();
-                }
-                if (-jPanel3.getHeight() / 2 < currentPoint.y - e.getY() && currentPoint.y - e.getY() < jPanel3.getHeight() / 2) {
-                    jPanel3.dy = currentPoint.y - e.getY();
-                    jPanel3.repaint();
-                }
-            }
-        });
-
         addMouseWheelListener(new MouseInputAdapter() {
 
             @Override
@@ -105,22 +73,7 @@ public class MainWindow extends javax.swing.JFrame {
                 jSlider1.setValue(jSlider1.getValue() - (int) e.getPreciseWheelRotation());
             }
         });
-    }
-
-    public void Clicked(MouseEvent e) {
-        float windowWidth = jPanel3.getWidth();
-        float windowHeight = jPanel3.getHeight();
-
-        //Percentual value of positions in jPanel
-        float perCentX = (float) (e.getX() - 265) / windowWidth;
-        float perCentY = (float) (e.getY() - 261) / windowHeight;
-
-        //Real coordinates in grid (don´t change after zooming and mooving scene)
-        double positionX = (double) Math.round((perCentX * windowWidth + jPanel3.dx) / jPanel3.scale * 10) / 10;
-        double positionY = (double) Math.round((perCentY * windowHeight + jPanel3.dy) / jPanel3.scale * 10) / 10;
-
-        jPanel3.repaint();
-    }
+    }            
 
 //      start of GUI generated code
     private void initComponents() {
@@ -141,7 +94,6 @@ public class MainWindow extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel3.setBackground(Color.black);
         parser = new YamlParser();
-        currentPoint = new Point();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -220,7 +172,6 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
     JFileChooser fileChooser;
-    
     ///ff accepts only yaml files.
     FileFilter ff = new FileFilter() {
 
@@ -265,6 +216,5 @@ public class MainWindow extends javax.swing.JFrame {
     private ICEGraphicsViewer jPanel3;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JToggleButton jToggleButton1;
-    private Point currentPoint;
     // End of variables declaration
 }
