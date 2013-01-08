@@ -251,7 +251,6 @@ public class MainWindow extends javax.swing.JFrame {
                     newFile();
                     jPanel3.setVertices(parser.getEntity());
                     jPanel3.setWidths(parser.getWidths());
-                    parser.saveEntity("");
                 } else {
                     ErrorWindow w = new ErrorWindow(MainWindow.this, parser.getError());
                     w.setVisible(true);
