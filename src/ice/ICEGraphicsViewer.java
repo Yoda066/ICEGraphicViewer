@@ -7,10 +7,8 @@ package ice;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -35,8 +33,8 @@ public class ICEGraphicsViewer extends JPanel {
     ///Point, where dragging starts
     Point currentPoint;
     ///Color of first vertex in drawing
-    Color c1;
-    Color c2;
+    Color c1 = Color.white;
+    Color c2 = Color.white;
     private boolean button1down = false;
     private boolean button3down = false;
 
@@ -46,17 +44,34 @@ public class ICEGraphicsViewer extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                //if middle mouse butooon was clicked, scene will centre
                 if (e.getButton() == 2) {
+                    scale = 1 ;
                     dx = 0;
                     dy = 0;
+                    repaint();
+                }
+                //if eight mouse button was pressed during drawing, drawned line will be erased
+                if (e.getButton() == 3) {
+                    if (button1down && vertices.size() >= 2) {
+                        button1down=false;
+                        vertices.remove(vertices.size() - 1);
+                        vertices.remove(vertices.size() - 1);
+                        widths.remove(widths.size() - 1);
+                        button1down = false;
+                    }
                     repaint();
                 }
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                //iniciate drawing by adding two new vertices
                 if (e.getButton() == 1) {
                     button1down = true;
+                    vertices.add(new Vertex((250) / scale, (200) / scale, c1));
+                    vertices.add(new Vertex((e.getX() - 250 + dx) / scale, (e.getY() - 200 + dy) / scale, c2));
+                    widths.add((float) 1);
                 }
                 if (e.getButton() == 3) {
                     button3down = true;
@@ -69,9 +84,6 @@ public class ICEGraphicsViewer extends JPanel {
                 super.mouseReleased(e);
                 if (e.getButton() == 1) {
                     button1down = false;
-                    vertices.add(new Vertex(0, 0, Color.red));
-                    vertices.add(new Vertex(0, 0, Color.red));
-                    widths.add((float) 0);
                 }
                 if (e.getButton() == 3) {
                     button3down = false;
@@ -97,15 +109,12 @@ public class ICEGraphicsViewer extends JPanel {
                     }
                 }
 
+                //draw line by changing last two vertices in "vertices"
                 if (button1down) {
                     if (vertices.size() >= 2) {
                         vertices.set(vertices.size() - 2, new Vertex((currentPoint.x - 250) / scale, (currentPoint.y - 200) / scale, c1));
                         vertices.set(vertices.size() - 1, new Vertex((e.getX() - 250 + dx) / scale, (e.getY() - 200 + dy) / scale, c2));
                         widths.set(widths.size() - 1, (float) 1);
-                    } else {
-                        vertices.add(new Vertex((currentPoint.x - 250) / scale, (currentPoint.y - 200) / scale, c1));
-                        vertices.add(new Vertex((e.getX() - 250 + dx) / scale, (e.getY() - 200 + dy) / scale, c2));
-                        widths.add((float) 1);
                     }
                     repaint();
                 }
@@ -137,7 +146,6 @@ public class ICEGraphicsViewer extends JPanel {
 
         g2d.translate(w - dx, h - dy);
         g2d.scale(scale, scale);
-
 
         g2d.setPaint(new Color(255, 255, 255, 150));
         g2d.setStroke(new BasicStroke((float) 0.7));
