@@ -7,6 +7,7 @@ package ice;
 import java.awt.Color;
 import java.io.*;
 import java.util.*;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 /**
@@ -39,7 +40,7 @@ public class YamlParser {
      * Try to parse yaml object into ICE visual component. @param file File to
      * convert.
      */
-    public void loadShip(File file) {
+    public void loadEntity(File file) {
         InputStream input = null;
         try {
             input = new FileInputStream(file);
@@ -109,6 +110,7 @@ public class YamlParser {
                                 b = Integer.parseInt(subStr.substring(4, 6), 16);
                                 currentColor = new Color(r, g, b);
                             }
+
                         } catch (NumberFormatException e) {
                             errorMessage = "Invalid color: " + (String) element[1];
                             entity = null;
@@ -158,5 +160,58 @@ public class YamlParser {
             entity = null;
             errorMessage = new String("File not found.");
         }
+    }
+
+    /// Print an yaml document object of entity
+    public void saveEntity(String path) {
+        //data is completed data to be saved
+        LinkedHashMap<Object, Object> data = new LinkedHashMap<>();
+        data.put("type", "lines");
+
+        //array of vertices, widths and colors
+        ArrayList<Object[]> vertices = new ArrayList<>();
+        for (int i = 0; i < widths.size(); i++) {
+            if (currentWidth != widths.get(i)) {
+                currentWidth = widths.get(i);
+                vertices.add(new Object[]{"width", currentWidth});
+            }
+            if (currentColor != entity.get(i * 2).color) {
+                currentColor = entity.get(i * 2).color;
+
+                vertices.add(new Object[]{"color", colorToString(currentColor)});
+            }
+            vertices.add(new Object[]{"vertex", vertexPosition(entity.get(i * 2))});
+
+            if (currentColor != entity.get(i * 2 + 1).color) {
+                currentColor = entity.get(i * 2 + 1).color;
+                vertices.add(new Object[]{"color", colorToString(currentColor)});
+            }
+
+            vertices.add(new Object[]{"vertex", vertexPosition(entity.get(i * 2 + 1))});
+        }
+
+        data.put("vertices", vertices);
+
+        Yaml yaml = new Yaml();
+        String output = yaml.dump(data);
+        System.out.println(output);
+    }
+
+    private ArrayList<Double> vertexPosition(Vertex v) {
+        ArrayList<Double> vertexPosition = new ArrayList<>(2);
+        //to ensure first two values are not null
+        vertexPosition.add(v.X);
+        vertexPosition.add(v.Y);
+        return vertexPosition;
+    }
+
+    private String colorToString(Color c) {
+        String result = "rgba";
+        result += Integer.toHexString(c.getRed());
+        result += Integer.toHexString(c.getGreen());
+        result += Integer.toHexString(c.getBlue());
+        result += Integer.toHexString(c.getAlpha());
+        result = result.toUpperCase();
+        return result;
     }
 }
