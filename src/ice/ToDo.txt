@@ -1,0 +1,3 @@
+* repair scroll bug
+* implement yaml export
+* add features VERTEX EDITING!
