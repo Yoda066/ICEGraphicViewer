@@ -35,8 +35,8 @@ public class ICEGraphicsViewer extends JPanel {
     ///Point, where dragging starts
     Point currentPoint;
     ///Color of first vertex in drawing
-    Color c1;
-    Color c2;
+    Color c1 = Color.white;
+    Color c2 = Color.white;
     private boolean button1down = false;
     private boolean button3down = false;
 
