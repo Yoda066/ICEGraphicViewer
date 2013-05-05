@@ -43,13 +43,23 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Color c; 
-                if (e.getX() <= jPanel2.getWidth() / 2) {
+                Color c;
+                if (e.getX() <= jPanel2.getWidth() / 3) {
                     c = JColorChooser.showDialog(rootPane, null, c1);
-                    if (c!=null) c1 =c;
+                    if (c != null) {
+                        c1 = c;
+                    }
+                } else if (e.getX() > 2 * jPanel2.getWidth() / 3) {
+                    c = JColorChooser.showDialog(rootPane, null, c2);
+                    if (c != null) {
+                        c2 = c;
+                    }
                 } else {
                     c = JColorChooser.showDialog(rootPane, null, c2);
-                    if (c!=null) c2 =c;
+                    if (c != null) {
+                        c2 = c;
+                        c1 = c;
+                    }
                 }
                 jPanel3.setColors(c1, c2);
                 jPanel2.repaint();
@@ -215,10 +225,6 @@ public class MainWindow extends javax.swing.JFrame {
         } else {
             jPanel3.grid = false;
         }
-        JColorChooser c = new JColorChooser();
-        Color color = c.showDialog(rootPane, null, Color.white);
-        c.setVisible(true);
-
         jPanel3.repaint();
     }
 
@@ -240,11 +246,12 @@ public class MainWindow extends javax.swing.JFrame {
                 w.setVisible(true);
                 w.dispose();
             } else {
-                parser.loadShip(selectedFile);
+                parser.loadEntity(selectedFile);
                 if (parser.getEntity() != null) {
                     newFile();
                     jPanel3.setVertices(parser.getEntity());
                     jPanel3.setWidths(parser.getWidths());
+                    parser.saveEntity("");
                 } else {
                     ErrorWindow w = new ErrorWindow(MainWindow.this, parser.getError());
                     w.setVisible(true);
@@ -287,7 +294,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration
     private Color c1;
     private Color c2;
