@@ -27,8 +27,7 @@ public class ICEGraphicsViewer extends JPanel {
     ///Vertices of entity
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     ///Widths of lines from vertices 2n and 2n+1 
-    private ArrayList<Float> widths = new ArrayList<Float>();
-    //private BufferedImage bi;
+    private ArrayList<Float> widths = new ArrayList<Float>();    
     float gridSize = 20;
     ///Point, where dragging starts
     Point currentPoint;
